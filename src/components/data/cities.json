@@ -1,0 +1,22 @@
+[
+    {
+        "value": "",
+        "label": "Select a city name 🔻"
+    },
+    {
+        "value": "patna",
+        "label": "patna"
+    },
+    {
+        "value": "delhi",
+        "label": "delhi"
+    },
+    {
+        "value": "punjab",
+        "label": "punjab"
+    },
+    {
+        "value": "goa",
+        "label": "goa"
+    }
+]

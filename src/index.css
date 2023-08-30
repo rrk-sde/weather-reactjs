@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
+
+
+
+/* common css for both pages */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: #FFFFFF;
+  width: 22%;
+  border-radius: 5px;
+}
+
+
+.goback {
+  color: #43AEFC;
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.container .heading h1 {
+  color: #43AEFC;
+  font-size: 20px;
+  /* border-bottom: 1px solid grey; */
+}
+
+
+@media only screen and (min-width: 300px) {
+  .container {
+    width: 95%;
+  }
+}
+
+
+@media only screen and (min-width: 600px) {
+  .container {
+    width: 35%;
+  }
+}
+
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    width: 22%;
+  }
+}

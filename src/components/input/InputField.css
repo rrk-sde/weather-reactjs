@@ -1,0 +1,25 @@
+hr {
+    color: gray;
+}
+
+.orSection {
+    position: relative;
+}
+
+.orSection hr {
+    position: relative;
+    top: 14px;
+    color: gray;
+}
+
+.orSection p {
+    position: relative;
+    left: 40%;
+    background: #FFFFFF;
+    width: 40px;
+    height: 20px;
+    text-align: center;
+    font-size: 18px;
+    bottom: 2px;
+    color: gray;
+}
