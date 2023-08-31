@@ -61,7 +61,8 @@ const WeatherReport = ({ data }) => {
         <div className=" bg-white bg-opacity-90 rounded-md px-4 overflow-hidden">
             <div className="flex items-center text-blue-500 text-xl font-semibold py-4">
                 <div className="cursor-pointer" onClick={() => navigate(-1)}>
-                    <BsArrowLeftShort className="w-8 h-8 bg-blue-600 text-white mr-2 rounded-full" />
+                    <BsArrowLeftShort className="w-8 h-8 bg-blue-600 text-white mr-2 rounded-full 
+                     hover:bg-blue-500" />
                 </div>
                 <h1 className='drop-shadow-md'>Weather Info</h1>
             </div>
