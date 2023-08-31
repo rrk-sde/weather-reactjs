@@ -1,9 +1,8 @@
 import React from 'react'
-import './Layout.css'
 
 const Layout = ({ children }) => {
     return (
-        <div className='layout'>
+        <div className="bg-blue-500 min-h-screen flex justify-center items-center">
             {children}
         </div>
     )

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import './WeatherReport.css'
 import { useNavigate, useLocation, useParams } from 'react-router-dom'
 // react icons
 import { ImLocation } from 'react-icons/im'
@@ -13,6 +12,9 @@ import Drizzle from '../../assets/drizzle.png'
 import Mist from '../../assets/mist.png'
 import { getWeather } from '../../services/api'
 import animagif from '../../assets/animation-gif.gif'
+// import GlobeComponent from '../globe/GlobeComponent'
+
+
 
 const WeatherReport = ({ data }) => {
 
@@ -27,9 +29,13 @@ const WeatherReport = ({ data }) => {
             try {
                 let response = await getWeather(city);
                 setResult(response);
-                // console.log(response);
+                setCoordi(response.coord)
+                console.log(response);
             } catch (error) {
                 console.error("Error fetching weather:", error);
+                if (error) {
+                    navigate('/')
+                }
             }
         };
         Object.keys(data).length == 0 && fetchWeather();
@@ -52,19 +58,19 @@ const WeatherReport = ({ data }) => {
 
 
     return (
-        <div className=" bg-white bg-opacity-80 px-4">
-            <div className="flex items-center text-blue-500 text-xl font-semibold py-1">
-                <div className="goback" onClick={() => navigate(-1)}>
-                    <BsArrowLeftShort className="w-7 h-7" />
+        <div className=" bg-white bg-opacity-90 rounded-md px-4 overflow-hidden">
+            <div className="flex items-center text-blue-500 text-xl font-semibold py-4">
+                <div className="cursor-pointer" onClick={() => navigate(-1)}>
+                    <BsArrowLeftShort className="w-8 h-8 bg-blue-600 text-white mr-2 rounded-full" />
                 </div>
-                <h1>Weather Info</h1>
+                <h1 className='drop-shadow-md'>Weather Info</h1>
             </div>
             <hr className="border-gray-400" />
 
             {result && Object.keys(result).length > 0 ? (
                 <div className=''>
                     <div className="flex flex-col justify-center items-center gap-2 py-6">
-                        <img src={result && imagePath} alt="Weather Image" className="w-28 h-20" />
+                        <img src={result && imagePath} alt="Weather Image" className="object-contain w-28 h-20" />
 
                         <div className="flex text-4xl">
                             <h2>{Math.round(result.main.temp)}</h2>
@@ -109,6 +115,15 @@ const WeatherReport = ({ data }) => {
                     {/* <p className="text-lg">Write City name to find Weather report</p> */}
                 </div>
             )}
+            {/* <div className='absolute overflow-hidden top-0 left-80 w-[950px]' >
+                <div style={{ width: '400px' }}>
+                    <GlobeComponent
+                        specificLocation={result?.coord}
+                        width="50%"
+                        height="40px"
+                    />
+                </div>
+            </div> */}
         </div>
     )
 }

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import './InputField.css'
-
+import React, { useState } from 'react'
 import { getWeather } from '../../services/api'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import SelectComponent from '../common/SelectComponent'
+import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 const API_KEY = '6f1c9ee91b22f5f1e5f8ccaecf1f8e81';
 const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
@@ -17,17 +16,12 @@ const InputField = ({ setResult }) => {
 
     const [data, setData] = useState({ city: '' })
 
-    // changing input value
     const handleChange = (e) => {
-        console.log(e.target.value)
         setData({ ...data, [e.target.name]: e.target.value })
-
     }
 
     const handleOptionChange = (e) => {
-        // console.log(e.target.value)
         setData({ ...data, [e.target.name]: e.target.value })
-
         getWeatherDetails(e.target.value);
     }
 
@@ -65,6 +59,8 @@ const InputField = ({ setResult }) => {
                     }
                 } catch (error) {
                     console.log("Error fetching weather data:", error);
+                    // console.log("dd", error?.response?.data?.message)
+                    setError(error?.response?.data?.message.split('.')[0] || error?.message)
                 }
             };
 
@@ -89,34 +85,43 @@ const InputField = ({ setResult }) => {
     };
 
 
+
     return (
-        <div className='bg-white shadow-lg px-4 py-4'>
+        <div className='bg-white shadow-lg px-4 rounded-md border-l-4 border-l-gray-500 py-4'>
             <div className=' text-center text-xl py-2 text-blue-500 font-semibold'>
-                <h1>Weather Station Dashboard</h1>
+                <h1 className='drop-shadow-md'>Weather Station Dashboard</h1>
             </div>
             <hr />
 
-            <div className="flex flex-col gap-4 px-10 py-10">
+            <div className="flex relative flex-col gap-4 px-10 py-10">
                 {error && (
-                    <div className="bg-red-600 text-white p-1 px-2 rounded width-fit-content text-xs">
+                    <div className="bg-red-600 w-58 text-white p-2 px-2 rounded width-fit-content text-md shadow-md animate-bounce duration-75">
                         <p>{error}</p>
                     </div>
                 )}
 
-                <input
-                    className="py-2 border-blue-400 px-2 border rounded focus:outline-blue focus:border-blue-500"
-                    name="city"
-                    type="text"
-                    placeholder="Enter city name"
-                    onChange={(e) => handleChange(e)}
-                    value={data.city}
-                    onKeyUp={(e) => {
-                        if (e.key === "Enter") {
-                            getWeatherDetails(data.city);
-                        }
-                    }}
-                />
-
+                <div className="flex relative">
+                    <input
+                        className="py-2 border-blue-400 px-2 border rounded focus:outline-blue focus:border-blue-500 pr-10 w-full"
+                        name="city"
+                        type="text"
+                        disabled={isLoading}
+                        placeholder="Enter City Name"
+                        onChange={(e) => handleChange(e)}
+                        value={data.city}
+                        onKeyUp={(e) => {
+                            if (e.key === "Enter") {
+                                getWeatherDetails(data.city);
+                            }
+                        }}
+                    />
+                    <div
+                        onClick={() => getWeatherDetails(data.city)}
+                        className="absolute cursor-pointer right-2 top-1/2 transform -translate-y-1/2"
+                    >
+                        <BsFillArrowRightCircleFill size={26} color="blue" />
+                    </div>
+                </div>
                 <SelectComponent isLoading={isLoading} data={data} handleOptionChange={handleOptionChange} />
 
                 <div className="relative top-12">
@@ -128,15 +133,15 @@ const InputField = ({ setResult }) => {
                 <button
                     disabled={isLoading}
                     onClick={() => getCurrentLocationWeather()}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+                    className="bg-blue-500 hover:bg-blue-700 text-center text-white font-bold py-2 px-4 rounded flex items-center justify-center"
                 >
                     {isLoading ? (
                         <div className="relative inline-block w-8 h-8 mr-2">
-                            <div className="absolute w-full h-full animate-spin rounded-full border-4 border-solid border-current border-r-transparent motion-safe:animate-spin"></div>
-                            <span className="absolute top-1/2 left-12 transform -translate-y-1/2">Loading...</span>
+                            <div className="absolute right-0 w-full h-full animate-spin rounded-full border-4 border-solid border-current border-r-transparent motion-safe:animate-spin"></div>
+                            <span className=" ">Loading...</span>
                         </div>
                     ) : (
-                        "Get Device Location"
+                        <h1 className=''>Get Device Location</h1>
                     )}
                 </button>
 
